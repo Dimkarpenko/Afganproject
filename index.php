@@ -41,7 +41,7 @@
         <div id="win">
             <model-viewer src="media/source/t55.glb" alt="A 3D model of a T-55" ar ar-modes="webxr scene-viewer quick-look" environment-image="neutral" auto-rotate camera-controls style="width:100%;height:100%;--poster-color: transparent;--background-color:#1C2125;" max-field-of-view="30deg" min-field-of-view="20deg" camera-orbit="145deg 85deg 0deg" poster="media/preloader-1.png"><button id="hide">&#10006;</button><div class="progress-bar hide" slot="progress-bar"><div class="update-bar"></div></div></model-viewer>
         </div>
-        <div id="question_win"><button id="question_hide">&#10006;</button><br><h2 style="text-shadow:#fff 0 0 20px;">Задать вопрос</h2><?php include 'lib/form/form.php';?></div>
+        <div id="question_win"><button id="question_hide">&#10006;</button><br><h2 style="text-shadow:#fff 0 0 20px;">Задать вопрос</h2><?php include 'scripts/form.php';?></div>
         <h1 style="text-shadow:#fff 0 0 20px;font-size:45px;">Нашим Афганцам</h1>
         <h2 id="main-text" style="color:#fff;width:70%;"><i>Макет "Нашим Афганцам" - это уменьшенная копия обновлённого парка "Героям войны в Афганистане".Мы сделали перепланировку части этого парка, улучшили благоустройство и сам монумент. На нашем сайте представлено поэтапное создание этой работы,используемые материалы и видео по сборке модели танка.</i></h2>
     	<h1 style='margin-top: 15%;text-shadow: #fff 0 0 20px;' id='video'>Как мы создавали проект</h1>
