@@ -1,0 +1,68 @@
+php_value error_reporting 1
+
+ErrorDocument 400 /media/errors/400.php
+ErrorDocument 401 /media/errors/401.php
+ErrorDocument 403 /media/errors/403.php
+ErrorDocument 404 /media/errors/404.php
+ErrorDocument 503 /media/errors/503.php
+
+RewriteEngine on
+
+LimitRequestBody 10240000
+
+<IfModule mod_rewrite.c>
+	RewriteCond %{HTTPS} off
+	RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+	
+	#RewriteCond %{HTTP_HOST} !^www\. [NC]
+	#RewriteRule (.*) https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html
+
+RewriteCond %{THE_REQUEST} ^[^\s]+\s+[^?]*?\?
+RewriteCond %{QUERY_STRING} =""
+RewriteRule .? %{REQUEST_URI}? [R=301,L]
+
+Options All -Indexes
+
+Redirect 301 /index http://afganproject.tk
+
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteRule ^([^/.]+)$ $1.php [L]
+
+RewriteCond %{HTTP_HOST} !^www\.oncode\.tk$ [NC]
+RewriteCond %{THE_REQUEST} ^(.+)\.php([#?][^\ ]*)?\ HTTP/
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteRule ^(.+)\.php$ http://%{HTTP_HOST}/$1 [R=301,L]
+
+<IfModule mod_headers.c>
+	Header set X-XSS-Protection "1; mode=block"
+	Header always append X-Frame-Options SAMEORIGIN
+	Header set X-Content-Type-Options nosniff
+</IfModule>
+
+<Limit GET POST HEAD> 
+Order Allow,Deny 
+Allow from all
+Deny from env=bad_bot
+</Limit>
+
+RewriteCond %{HTTP_HOST} ^afgan-project.000webhostapp.com [NC]
+RewriteRule ^(.*)$ http://afganproject.tk/$1 [L,R=301]
